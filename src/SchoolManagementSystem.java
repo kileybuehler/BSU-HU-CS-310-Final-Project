@@ -231,10 +231,29 @@ public class SchoolManagementSystem {
     public static void listAllClassSections() {
         Connection connection = null;
         Statement sqlStatement = null;
+        ResultSet result = null;
 
         try {
-             /* Your logic goes here */
-            throw new SQLException(); // REMOVE THIS (this is just to force it to compile)
+             connection = Database.getDatabaseConnection();
+            sqlStatement = connection.createStatement();
+            result = sqlStatement.executeQuery(String.format(
+                "SELECT class_sections.class_section_id, classes.code, classes.name, terms.name as term" +
+                "FROM class_sections " + 
+                "JOIN classes ON classes.class_id = class_sections.class_id " +
+                "JOIN terms ON class_sections.term_id = terms.term_id"
+                ));
+
+            System.out.println("Class Section ID | Code | Name | Term");
+            while (result.next()) {
+                System.out.print(result.getString("class_section_id") + " | ");
+                System.out.print(result.getString("code") + " | ");
+                System.out.print(result.getString("name") + " | ");
+                System.out.println(result.getString("term"));
+            }
+
+            result.close();
+            sqlStatement.close();
+            connection.close();
         } catch (SQLException sqlException) {
             System.out.println("Failed to get class sections");
             System.out.println(sqlException.getMessage());
