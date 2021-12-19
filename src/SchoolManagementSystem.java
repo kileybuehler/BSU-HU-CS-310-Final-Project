@@ -204,9 +204,9 @@ public class SchoolManagementSystem {
                 System.out.println(result.getString("letter_grade"));
             }
 
-        result.close();
-        sqlStatement.close();
-        connection.close();
+            result.close();
+            sqlStatement.close();
+            connection.close();
 
         } catch (SQLException sqlException) {
             System.out.println("Failed to get class sections");

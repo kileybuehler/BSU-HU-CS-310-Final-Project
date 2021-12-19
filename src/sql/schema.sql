@@ -117,3 +117,25 @@ BEGIN
 	END IF;
     RETURN grade_point;
 END $$
+
+CREATE FUNCTION convert_grade_point_to_letter_grade(grade_point INT)
+	RETURNS INT 
+    DETERMINISTIC
+BEGIN
+    DECLARE letter_grade char(2);
+
+    IF grade_point=4 THEN   
+        SET letter_grade = 'A';
+    ELSEIF grade_point=3 THEN  
+        SET letter_grade = 'B';
+    ELSEIF grade_point=2 THEN  
+        SET letter_grade = 'C';
+    ELSEIF grade_point=1 THEN  
+        SET letter_grade = 'D';
+    ELSEIF grade_point=0 THEN  
+        SET letter_grade = 'F';
+    ELSE 
+        SET letter_grade = NULL;
+    END IF;
+    RETURN letter_grade;
+END $$
