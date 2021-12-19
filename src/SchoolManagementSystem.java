@@ -162,14 +162,14 @@ public class SchoolManagementSystem {
                         String.format("VALUES ('%s', '%s', '%s')", firstName, lastName, birthdate));
             sqlStatement.executeUpdate(newStudent);
             result = sqlStatement.executeQuery(String.format(
-                "SELECT * FROM students" + 
-                "WHERE students.first_name='%s' AND students.last_name='%s';", firstName, lastName
+                "SELECT * FROM students " + 
+                "WHERE students.first_name = '%s' AND students.last_name = '%s';", firstName, lastName
                 ));
 
             System.out.println("Student ID | First Name | Last Name | Birthdate");
             System.out.println("-".repeat(80));
             while (result.next()) {
-                System.out.print(result.getString("student_id"));
+                System.out.print(result.getString("student_id") + " | ");
                 System.out.print(result.getString("first_name") + " | ");
                 System.out.print(result.getString("last_name") + " | ");
                 System.out.println(result.getString("birthdate"));
