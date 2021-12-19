@@ -105,10 +105,10 @@ public class SchoolManagementSystem {
         try {
             connection = Database.getDatabaseConnection();
             sqlStatement = connection.createStatement();
-            result = sqlStatement.executeQuery(String.format(
+            String registerQuery = String.format(
                 "INSERT INTO class_registrations (class_section_id, student_id, grade_id) " + 
-                "VALUES ('%s', '%s', 1)", classSectionID, studentId));
-
+                "VALUES ('%s', '%s', 1)", classSectionID, studentId);
+            sqlStatement.executeUpdate(registerQuery);
             String registerStudentString = String.format("SELECT * FROM class_registrations " + 
             "WHERE class_section_id = '%s' AND student_id = '%s';"
             , classSectionID, studentId);
