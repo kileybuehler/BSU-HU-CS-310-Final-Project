@@ -119,8 +119,9 @@ BEGIN
     RETURN grade_point;
 END $$
 
-CREATE FUNCTION convert_grade_point_to_letter_grade(grade_point INT)
-	RETURNS INT 
+DELIMITER $$
+CREATE FUNCTION convert_grade_point_to_letter_grade(grade_point int)
+	RETURNS CHAR(2) 
     DETERMINISTIC
 BEGIN
     DECLARE letter_grade char(2);
