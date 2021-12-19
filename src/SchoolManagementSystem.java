@@ -240,8 +240,7 @@ public class SchoolManagementSystem {
                 "SELECT class_sections.class_section_id, classes.code, classes.name, terms.name as term" +
                 "FROM class_sections " + 
                 "JOIN classes ON classes.class_id = class_sections.class_id " +
-                "JOIN terms ON class_sections.term_id = terms.term_id;"
-                ));
+                "JOIN terms ON class_sections.term_id = terms.term_id;"));
 
             System.out.println("Class Section ID | Code | Name | Term");
             while (result.next()) {
@@ -276,10 +275,19 @@ public class SchoolManagementSystem {
     public static void listAllClasses() {
         Connection connection = null;
         Statement sqlStatement = null;
-
+        ResultSet result = null;
         try {
-             /* Your logic goes here */
-            throw new SQLException(); // REMOVE THIS (this is just to force it to compile)
+            connection = Database.getDatabaseConnection();
+            sqlStatement = connection.createStatement();
+            result = sqlStatement.executeQuery(String.format("SELECT * FROM CLASSES;"));
+
+            System.out.println("Class ID | Code | Name | Description");
+            while (result.next()) {
+                System.out.print(result.getString("class_id") + " | ");
+                System.out.print(result.getString("code") + " | ");
+                System.out.print(result.getString("name") + " | ");
+                System.out.println(result.getString("description"));
+            }
         } catch (SQLException sqlException) {
             System.out.println("Failed to get students");
             System.out.println(sqlException.getMessage());
