@@ -118,6 +118,7 @@ BEGIN
     RETURN grade_point;
 END $$
 
+DELIMITER $$
 CREATE FUNCTION convert_grade_point_to_letter_grade(grade_point INT)
 	RETURNS INT 
     DETERMINISTIC
