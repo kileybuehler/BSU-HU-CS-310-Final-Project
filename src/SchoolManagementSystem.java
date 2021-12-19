@@ -76,8 +76,8 @@ public class SchoolManagementSystem {
              sqlStatement = connection.createStatement();
              String gradeQuery = String.format("UPDATE class_registrations " +
                 "SET grade_id = convert_to_grade_point('%s') " +
-                "WHERE student_id = '%s' AND class_section_id = '%s';", studentId, classSectionID);
-                
+                "WHERE student_id = '%s' AND class_section_id = '%s';", grade, studentId, classSectionID);
+
             sqlStatement.executeUpdate(gradeQuery);
             System.out.println("Grade has been submitted!");
 
