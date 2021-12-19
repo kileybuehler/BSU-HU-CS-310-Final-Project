@@ -191,7 +191,7 @@ public class SchoolManagementSystem {
                 "JOIN students ON students.student_id = class_registrations.student_id " + 
                 "JOIN class_sections ON class_sections.class_section_id = class_registrations.class_section_id " +
                 "JOIN classes ON classes.class_id = class_sections.class_id " +
-                "JOIN terms ON class_sections.term_id = terms.term_id"));
+                "JOIN terms ON class_sections.term_id = terms.term_id;"));
 
             System.out.println("Student ID | Class Section ID | First Name | Last Name | Code | Name | Term | Letter Grade");
             while (result.next()) {
@@ -240,7 +240,7 @@ public class SchoolManagementSystem {
                 "SELECT class_sections.class_section_id, classes.code, classes.name, terms.name as term" +
                 "FROM class_sections " + 
                 "JOIN classes ON classes.class_id = class_sections.class_id " +
-                "JOIN terms ON class_sections.term_id = terms.term_id"
+                "JOIN terms ON class_sections.term_id = terms.term_id;"
                 ));
 
             System.out.println("Class Section ID | Code | Name | Term");
