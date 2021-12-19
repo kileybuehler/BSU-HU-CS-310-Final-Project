@@ -101,10 +101,26 @@ public class SchoolManagementSystem {
     public static void registerStudent(String studentId, String classSectionID) {
         Connection connection = null;
         Statement sqlStatement = null;
-
+        ResultSet result = null;
         try {
-             /* Your logic goes here */
-            throw new SQLException(); // REMOVE THIS (this is just to force it to compile)
+            connection = Database.getDatabaseConnection();
+            sqlStatement = connection.createStatement();
+            result = sqlStatement.executeQuery(String.format(
+                "INSERT INTO class_registrations (class_section_id, student_id, grade_id) " + 
+                "VALUES ('%s', '%s', 1)", classSectionID, studentId));
+
+            String registerStudentString = String.format("SELECT * FROM class_registrations " + 
+            "WHERE class_section_id = '%s' AND student_id = '%s';"
+            , classSectionID, studentId);
+            result = sqlStatement.executeQuery(registerStudentString);
+
+            System.out.println("Class Registration ID | Student ID | Class Section ID");
+            System.out.println("-".repeat(80));
+            while (result.next()) {
+                System.out.print(result.getString("class_registration_id") + " | ");
+                System.out.print(result.getString("student_id") + " | ");
+                System.out.println(result.getString("class_section_id"));
+            }
         } catch (SQLException sqlException) {
             System.out.println("Failed to register student");
             System.out.println(sqlException.getMessage());
@@ -130,8 +146,8 @@ public class SchoolManagementSystem {
         try {
             connection = Database.getDatabaseConnection();
             sqlStatement = connection.createStatement();
-            String deleteStudent = String.format("DELETE FROM students WHERE student_id = '%s';", studentId);
-            sqlStatement.executeUpdate(deleteStudent);
+            String deleteStudentString = String.format("DELETE FROM students WHERE student_id = '%s';", studentId);
+            sqlStatement.executeUpdate(deleteStudentString);
             System.out.println(String.format("Student with id: %s was deleted", studentId));
         } catch (SQLException sqlException) {
             System.out.println("Failed to delete student");
