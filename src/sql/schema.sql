@@ -15,6 +15,7 @@ DROP TABLE IF EXISTS academic_titles;
 DROP TABLE IF EXISTS students; 
 DROP TABLE IF EXISTS classes; 
 DROP FUNCTION IF EXISTS convert_to_grade_point; 
+DROP FUNCTION IF EXISTS convert_grade_point_to_letter_grade;
  
 CREATE TABLE IF NOT EXISTS classes( 
     class_id INT AUTO_INCREMENT, 
@@ -118,7 +119,6 @@ BEGIN
     RETURN grade_point;
 END $$
 
-DELIMITER $$
 CREATE FUNCTION convert_grade_point_to_letter_grade(grade_point INT)
 	RETURNS INT 
     DETERMINISTIC
