@@ -21,10 +21,11 @@ public class SchoolManagementSystem {
              connection = Database.getDatabaseConnection();
              sqlStatement = connection.createStatement();
              result = sqlStatement.executeQuery(String.format(
-                "SELECT first_name, last_name, title, classes.code, classes.name, terms.name AS term " +
+                "SELECT first_name, last_name, title, code, classes.name, terms.name AS term " +
                 "FROM instructors " + 
                 "JOIN academic_titles ON instructors.academic_title_id = academic_titles.academic_title_id " +
                 "JOIN class_sections ON instructors.instructor_id = class_sections.instructor_id " +
+                "JOIN classes ON class_sections.class_id = classes.class_id " +
                 "JOIN terms ON class_sections.term_id = terms.term_id " + 
                 "WHERE instructors.first_name LIKE '%s' AND instructors.last_name LIKE '%s';",
                 first_name, last_name
