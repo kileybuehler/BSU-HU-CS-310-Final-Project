@@ -119,6 +119,7 @@ BEGIN
     RETURN grade_point;
 END $$
 
+DROP FUNCTION IF EXISTS convert_grade_point_to_letter_grade;
 DELIMITER $$
 CREATE FUNCTION convert_grade_point_to_letter_grade(grade_point int)
 	RETURNS CHAR(2) 
