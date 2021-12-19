@@ -154,10 +154,26 @@ public class SchoolManagementSystem {
     public static void createNewStudent(String firstName, String lastName, String birthdate) {
         Connection connection = null;
         Statement sqlStatement = null;
-
+        ResultSet result = null;
         try {
-             /* Your logic goes here */
-            throw new SQLException(); // REMOVE THIS (this is just to force it to compile)
+            connection = Database.getDatabaseConnection();
+            sqlStatement = connection.createStatement();
+            String newStudent = ("INSERT INTO students (first_name, last_name, birthdate)\n" +
+                        String.format("VALUES ('%s', '%s', '%s')", firstName, lastName, birthdate));
+            sqlStatement.executeUpdate(newStudent);
+            result = sqlStatement.executeQuery(String.format(
+                "SELECT * FROM students" + 
+                "WHERE students.first_name='%s' AND students.last_name='%s';", firstName, lastName
+                ));
+
+            System.out.println("Student ID | First Name | Last Name | Birthdate");
+            System.out.println("-".repeat(80));
+            while (result.next()) {
+                System.out.print(result.getString("student_id"));
+                System.out.print(result.getString("first_name") + " | ");
+                System.out.print(result.getString("last_name") + " | ");
+                System.out.println(result.getString("birthdate"));
+            }
         } catch (SQLException sqlException) {
             System.out.println("Failed to create student");
             System.out.println(sqlException.getMessage());
