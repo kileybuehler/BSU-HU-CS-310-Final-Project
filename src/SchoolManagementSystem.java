@@ -186,7 +186,7 @@ public class SchoolManagementSystem {
             connection = Database.getDatabaseConnection();
             sqlStatement = connection.createStatement();
             result = sqlStatement.executeQuery(String.format(
-                "SELECT students.student_id, class_sections.class_section_id, students.first_name, students.last_name, classes.code, classes.name, terms.name as term, convert_grade_point_to_letter_grade(class_registrations.grade_id) FROM class_registrations" +
+                "SELECT students.student_id, class_sections.class_section_id, students.first_name, students.last_name, classes.code, classes.name, terms.name as term, convert_grade_point_to_letter_grade(class_registrations.grade_id) FROM class_registrations " +
                 "FROM class_registrations " +
                 "JOIN students ON students.student_id = class_registrations.student_id " + 
                 "JOIN class_sections ON class_sections.class_section_id = class_registrations.class_section_id " +
