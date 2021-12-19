@@ -187,6 +187,7 @@ public class SchoolManagementSystem {
             sqlStatement = connection.createStatement();
             result = sqlStatement.executeQuery(String.format(
                 "SELECT students.student_id, class_sections.class_section_id, students.first_name, students.last_name, classes.code, classes.name, terms.name " +
+                "FROM class_registrations " +
                 "JOIN students ON students.student_id = class_registrations.student_id " + 
                 "JOIN class_sections ON class_sections.class_section_id = class_registrations.class_section_id " +
                 "JOIN classes ON classes.class_id = class_sections.class_id " +
