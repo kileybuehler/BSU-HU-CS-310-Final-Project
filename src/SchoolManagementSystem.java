@@ -70,15 +70,17 @@ public class SchoolManagementSystem {
     public static void submitGrade(String studentId, String classSectionID, String grade) {
         Connection connection = null;
         Statement sqlStatement = null;
-        ResultSet result = null;
+
         try {
-            //  connection = Database.getDatabaseConnection();
-            //  sqlStatement = connection.createStatement();
-            //  result = sqlStatement.executeQuery(String.format(
-            //     "",
-            //     studentId, last_name
-            //  ));
-            throw new SQLException();
+             connection = Database.getDatabaseConnection();
+             sqlStatement = connection.createStatement();
+             String gradeQuery = String.format("UPDATE class_registrations " +
+                "SET grade_id = convert_to_grade_point('%s') " +
+                "WHERE student_id = '%s' AND class_section_id = '%s';", studentId, classSectionID);
+                
+            sqlStatement.executeUpdate(gradeQuery);
+            System.out.println("Grade has been submitted!");
+
         } catch (SQLException sqlException) {
             System.out.println("Failed to submit grade");
             System.out.println(sqlException.getMessage());
