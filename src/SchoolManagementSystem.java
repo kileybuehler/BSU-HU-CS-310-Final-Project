@@ -457,6 +457,7 @@ public class SchoolManagementSystem {
             }
             System.out.println("-".repeat(80));
         } while (!(command.equals("quit") || command.equals("exit")));
+        scan.close();
         System.out.println("Bye!");
     }
 }
