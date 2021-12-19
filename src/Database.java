@@ -82,5 +82,5 @@ public class Database {
             try { resultSet.close(); } catch (Exception e) { /* ignored */ }
             try { connection.close(); } catch (Exception e) { /* ignored */ }
         }
-    }
+    } 
 }

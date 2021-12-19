@@ -16,10 +16,33 @@ public class SchoolManagementSystem {
     public static void getAllClassesByInstructor(String first_name, String last_name) {
         Connection connection = null;
         Statement sqlStatement = null;
-
+        ResultSet result = null;
         try {
-             /* Your logic goes here */
-            throw new SQLException(); // REMOVE THIS (this is just to force it to compile)
+             connection = Database.getDatabaseConnection();
+             sqlStatement = connection.createStatement();
+             result = sqlStatement.executeQuery(String.format(
+                 "SELECT first_name, last_name, title, code, classes.name, terms.name AS term " +
+                 "FROM instructors " + 
+                 "JOIN academic_titles ON instructors.academic_title_id = academic_titles.academic_title_id " +
+                 "JOIN class_sections ON instructors.instructor_id = class_sections.instructor_id " +
+                 "JOIN terms ON class_sections.term_id = terms.term_id" + 
+                 "WHERE instructors.first_name LIKE '%s' AND instructors.last_name LIKE '%s';",
+                 first_name, last_name));
+
+                System.out.println("First Name | Last Name | Title | Code | Name | Term");
+                System.out.println("-".repeat(80));
+                while (result.next()) {
+                    System.out.print(result.getString("first_name") + " | ");
+                    System.out.print(result.getString("last_name") + " | ");
+                    System.out.print(result.getString("title") + " | ");
+                    System.out.print(result.getString("code") + " | ");
+                    System.out.print(result.getString("name") + " | ");
+                    System.out.println(result.getString("term"));
+                }
+
+            result.close();
+            sqlStatement.close();
+            connection.close();
             
         } catch (SQLException sqlException) {
             System.out.println("Failed to get class sections");
