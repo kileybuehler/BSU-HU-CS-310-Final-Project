@@ -311,10 +311,19 @@ public class SchoolManagementSystem {
     public static void listAllStudents() {
         Connection connection = null;
         Statement sqlStatement = null;
-
+        ResultSet result = null;
         try {
-             /* Your logic goes here */
-            throw new SQLException(); // REMOVE THIS (this is just to force it to compile)
+            connection = Database.getDatabaseConnection();
+            sqlStatement = connection.createStatement();
+            result = sqlStatement.executeQuery(String.format("SELECT * FROM students;"));
+
+            System.out.println("Student ID | First Name | Last Name | Birthdate");
+            while (result.next()) {
+                System.out.print(result.getString("student_id") + " | ");
+                System.out.print(result.getString("first_name") + " | ");
+                System.out.print(result.getString("last_name") + " | ");
+                System.out.println(result.getString("birthdate"));
+            }
         } catch (SQLException sqlException) {
             System.out.println("Failed to get students");
             System.out.println(sqlException.getMessage());
