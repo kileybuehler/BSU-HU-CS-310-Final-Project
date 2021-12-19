@@ -127,10 +127,12 @@ public class SchoolManagementSystem {
     public static void deleteStudent(String studentId) {
         Connection connection = null;
         Statement sqlStatement = null;
-
         try {
-             /* Your logic goes here */
-            throw new SQLException(); // REMOVE THIS (this is just to force it to compile)
+            connection = Database.getDatabaseConnection();
+            sqlStatement = connection.createStatement();
+            String deleteStudent = String.format("DELETE FROM students WHERE student_id = '%s';", studentId);
+            sqlStatement.executeUpdate(deleteStudent);
+            System.out.println(String.format("Student with id: %s was deleted", studentId));
         } catch (SQLException sqlException) {
             System.out.println("Failed to delete student");
             System.out.println(sqlException.getMessage());
