@@ -222,14 +222,14 @@ public class SchoolManagementSystem {
             connection = Database.getDatabaseConnection();
             sqlStatement = connection.createStatement();
             result = sqlStatement.executeQuery(String.format(
-                "SELECT students.student_id, class_sections.class_section_id, students.first_name, students.last_name, classes.code, classes.name, terms.name as term, convert_grade_point_to_letter_grade(class_registrations.grade_id) as letter_grade  " +
+                "SELECT students.student_id, class_sections.class_section_id, students.first_name, students.last_name, classes.code, classes.name, terms.name as term " +
                 "FROM class_registrations " +
                 "JOIN students ON students.student_id = class_registrations.student_id " + 
                 "JOIN class_sections ON class_sections.class_section_id = class_registrations.class_section_id " +
                 "JOIN classes ON classes.class_id = class_sections.class_id " +
                 "JOIN terms ON class_sections.term_id = terms.term_id;"));
 
-            System.out.println("Student ID | Class Section ID | First Name | Last Name | Code | Name | Term | Letter Grade");
+            System.out.println("Student ID | Class Section ID | First Name | Last Name | Code | Name | Term");
             while (result.next()) {
                 System.out.print(result.getString("student_id") + " | ");
                 System.out.print(result.getString("class_section_id") + " | ");
@@ -237,8 +237,7 @@ public class SchoolManagementSystem {
                 System.out.print(result.getString("last_name") + " | ");
                 System.out.print(result.getString("code") + " | ");
                 System.out.print(result.getString("name") + " | ");
-                System.out.print(result.getString("term") + " | ");
-                System.out.println(result.getString("letter_grade"));
+                System.out.println(result.getString("term"));
             }
 
             result.close();
