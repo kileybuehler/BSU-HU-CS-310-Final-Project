@@ -279,7 +279,7 @@ public class SchoolManagementSystem {
         try {
             connection = Database.getDatabaseConnection();
             sqlStatement = connection.createStatement();
-            result = sqlStatement.executeQuery(String.format("SELECT * FROM CLASSES;"));
+            result = sqlStatement.executeQuery(String.format("SELECT * FROM classes;"));
 
             System.out.println("Class ID | Code | Name | Description");
             while (result.next()) {
